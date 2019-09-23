@@ -1,26 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
+import  { Component } from 'react';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import 'milligram';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import GnomoDetails from './pages/GnomoDetails';
+
+import Brastlewark from './components/Brastlewark';
+import DetailsRoute from './components/DetailsRoute'
+
+
+class App extends Component {
+  render() {
+    return (
+      <Router>
+        <div className="App">
+          <Switch>
+            <Brastlewark path="/" exact component={Brastlewark}/>
+            <DetailsRoute exact path="/gnomes/:id" component={GnomoDetails}/>
+          </Switch>
+        </div>
+      </Router>
+    )
+  }
 }
 
 export default App;
