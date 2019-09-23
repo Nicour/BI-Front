@@ -59,7 +59,44 @@ class Brastlewark extends Component {
           <input type="number" placeholder = 'Older than...' value={searchAge} onChange={this.updateSearchAge.bind(this)}/>
         </div>
         </section>
-        <section className="gnome-list" >
+        <section className="gnome-list">
+        {
+          info.length && !searchName && !searchAge  ? 
+          info.map(gnomo => 
+            <div className="gnome-card" key={gnomo.id}>
+                <div className="gnome-image">
+                  <img src={gnomo.thumbnail} alt={gnomo.name}/>
+                </div>
+                <section className="gnome-info"> 
+                  <div>
+                    <h2>{gnomo.name}</h2> 
+                  </div>
+                  <div>
+                    <p>Age: {gnomo.age}</p>
+                  </div>
+                  <div>
+                    <p>Hair color: {gnomo.hair_color}</p>
+                  </div>
+                  <div>
+                    <p>Height: {gnomo.height}</p>
+                  </div>
+                  <div>
+                    <p> Weight: {gnomo.weight}</p>
+                  </div>
+                  {gnomo.friends.length ? 
+                  <div>
+                  <p> Friends: {gnomo.friends + ""}</p>
+                  </div> : <p>No friends</p>
+                  }
+                  {gnomo.professions.length ? 
+                  <div>
+                  <p> Professions: {gnomo.professions + ""}</p>
+                  </div> : <p>No professions</p>
+                  }
+                </section>
+              </div>
+          ) : null
+        }
         {
           info.length && searchName  ? 
           fileteredGnomosByName.map(gnomo => 
