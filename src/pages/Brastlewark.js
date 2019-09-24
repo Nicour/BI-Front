@@ -17,7 +17,6 @@ class Brastlewark extends Component {
   componentDidMount() {
     axios.get('https://raw.githubusercontent.com/rrafols/mobile_test/master/data.json')
     .then(response => {
-      console.log(response)
       this.setState({info: response.data.Brastlewark})
     })
     .catch(error => {
