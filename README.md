@@ -8,7 +8,9 @@ Is an App to browse the Gnomes details
 
 # STACK
 
-React.js, Axios and Milligram
++ React.js
++ Axios
++ Milligram
 
 # HOW TO RUN THE APP
 
