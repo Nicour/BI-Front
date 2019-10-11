@@ -6,6 +6,10 @@ Brastlewark app
 
 Is an App to browse the Gnomes details
 
+# Stack
+
+React.js, Axios and Milligram
+
 # HOW TO RUN THE APP
 
 + Clone the repo
