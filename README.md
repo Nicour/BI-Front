@@ -4,7 +4,7 @@ Brastlewark app
 
 # DESCRIPTION
 
-Is an App to browse the Gnomes details
+Is an App to browse the Gnomes details where you can filter them by name or by age
 
 # STACK
 
