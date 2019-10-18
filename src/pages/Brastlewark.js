@@ -7,25 +7,49 @@ class Brastlewark extends Component {
     super(props);
     
     this.state = {
-       info: [],
-       searchName: '',
-       searchAge: '',
-       active: false,
+      gnomesFromApi:[],
+      gnomes: [],
+      totalGnomes: 0,
+      currentPage: 0,
+      gnomesPerPage: 10,   
+      searchName: '',
+      searchAge: '',
+      active: false,
     }
   }
 
   componentDidMount() {
-    axios.get('https://raw.githubusercontent.com/rrafols/mobile_test/master/data.json')
-    .then(response => {
-      this.setState({info: response.data.Brastlewark})
+    const {currentPage, gnomesPerPage} = this.state
+      axios.get('https://raw.githubusercontent.com/rrafols/mobile_test/master/data.json')
+      .then (response => {
+        const gnomes = response.data;
+        const paginatedGnomes = gnomes.Brastlewark.slice(currentPage, gnomesPerPage)
+        this.setState({ gnomesFromApi: response.data, gnomes: paginatedGnomes, totalGnomes: gnomes.Brastlewark.length 
+        })
+      })
+  }
+
+  handleNextPage = () => {
+    const {currentPage, gnomesPerPage, gnomesFromApi} = this.state
+    this.setState({ 
+      currentPage:currentPage + gnomesPerPage
     })
-    .catch(error => {
-      console.log(error);
+    const newCurrentPage = currentPage + gnomesPerPage
+    const nextPaginatedGnomes = gnomesFromApi.Brastlewark.slice(newCurrentPage, newCurrentPage+gnomesPerPage)
+    this.setState({gnomes:nextPaginatedGnomes, currentPage:newCurrentPage})
+  }
+
+  handlePreviousPage = () => {
+    const {currentPage, gnomesPerPage, gnomesFromApi} = this.state
+    this.setState({ 
+      currentPage:currentPage - gnomesPerPage
     })
+    const newCurrentPage = currentPage - gnomesPerPage
+    const nextPaginatedGnomes = gnomesFromApi.Brastlewark.slice(newCurrentPage, newCurrentPage+gnomesPerPage)
+    this.setState({gnomes:nextPaginatedGnomes, currentPage:newCurrentPage})
   }
 
   
-
   updateSearchName(event) {
     this.setState({searchName: event.target.value.substr(0, 25)})
   }
@@ -36,13 +60,13 @@ class Brastlewark extends Component {
   }
 
   render() {
-    const {info, searchName, searchAge} = this.state;
-    let fileteredGnomosByName = info.filter(
+    const {gnomes, searchName, searchAge} = this.state;
+    let fileteredGnomosByName = gnomes.filter(
       gnomo => {
         return gnomo.name.toLowerCase().indexOf(this.state.searchName.toLowerCase()) !== -1;
       }
     );
-    let fileteredGnomosByAge = info.filter(
+    let fileteredGnomosByAge = gnomes.filter(
       gnomo => {
         return gnomo.age >= this.state.searchAge;
       }
@@ -50,36 +74,46 @@ class Brastlewark extends Component {
     return (
       <>
         <h1>Brastlewark</h1>
-        <section className="searchbar-container">
-        <div className="searchbar" >
-          <p>Search by name</p>
-          <input type="text" value={searchName} onChange={this.updateSearchName.bind(this)}/>
-        </div>
-        <div className="searchbar" >
-          <p>Search by age</p>
-          <input type="number" placeholder = 'Older than...' value={searchAge} onChange={this.updateSearchAge.bind(this)}/>
-        </div>
+        <section className="navbar">
+          <section className="searchbar-container">
+            <div className="searchbar" >
+              <p>Search by name</p>
+              <input type="text" placeholder = "Gnome name" value={searchName} onChange={this.updateSearchName.bind(this)}/>
+            </div>
+            <div className="searchbar" >
+              <p>Search by age</p>
+              <input type="number" placeholder = "Older than..." value={searchAge} onChange={this.updateSearchAge.bind(this)}/>
+            </div>
+          </section>
+          <section className="buttons">
+            <button onClick={this.handlePreviousPage} className="page-btn"> Previous </button>
+            <button onClick={this.handleNextPage} className="page-btn"> Next </button>
+          </section>
         </section>
         <section className="gnome-list">
-        {
-          info.length && !searchName && !searchAge  ? 
-          info.map(gnomo => 
-            <GnomeCard data={gnomo}/>
-          ) : null
-        }
-        {
-          info.length && searchName  ? 
-          fileteredGnomosByName.map(gnomo => 
-            <GnomeCard data={gnomo}/>
-          ) : null
-        }
-        {
-          info.length && searchAge ? 
-          fileteredGnomosByAge.map(gnomo => 
-            <GnomeCard data={gnomo}/>
-          ) : null
-        }
+          {
+            gnomes.length && !searchName && !searchAge  ? 
+            gnomes.map(gnomo => 
+              <GnomeCard data={gnomo}/>
+            ) : null
+          }
+          {
+            gnomes.length && searchName  ? 
+            fileteredGnomosByName.map(gnomo => 
+              <GnomeCard data={gnomo}/>
+            ) : null
+          }
+          {
+            gnomes.length && searchAge ? 
+            fileteredGnomosByAge.map(gnomo => 
+              <GnomeCard data={gnomo}/>
+            ) : null
+          }
         </section>
+        <div>
+          <button onClick={this.handlePreviousPage} className="page-btn"> Previous </button>
+          <button onClick={this.handleNextPage} className="page-btn"> Next </button>
+        </div>
       </>
     )
   }
