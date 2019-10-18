@@ -1,3 +1,29 @@
+# PROJECT NAME
+
+Brastlewark app
+
+# DESCRIPTION
+
+Is an App to browse the Gnomes details where you can filter them by name or by age
+
+# STACK
+
++ React.js
++ Axios
++ Milligram
+
+# HOW TO RUN THE APP
+
++ Clone the repo
++ npm install
++ npm start
+
+The App runs on port 3000
+
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
