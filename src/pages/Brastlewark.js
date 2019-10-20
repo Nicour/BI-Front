@@ -13,8 +13,7 @@ class Brastlewark extends Component {
       currentPage: 0,
       gnomesPerPage: 10,   
       searchName: '',
-      searchAge: '',
-      active: false,
+      searchAge: ''
     }
   }
 
@@ -54,9 +53,9 @@ class Brastlewark extends Component {
     this.setState({searchName: event.target.value.substr(0, 25)})
   }
 
+
   updateSearchAge(event) {
     this.setState({searchAge: event.target.value.substr(0, 4)})
-   
   }
 
   render() {
@@ -108,6 +107,11 @@ class Brastlewark extends Component {
             fileteredGnomosByAge.map(gnomo => 
               <GnomeCard data={gnomo}/>
             ) : null
+          }
+          {
+            !gnomes.length ?
+            <h2>Oh, the gnomes have disappeared!! Go to the previous/next page!</h2>
+            : null
           }
         </section>
         <div>
