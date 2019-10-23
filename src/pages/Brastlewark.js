@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+
 import GnomeCard from '../components/GnomeCard';
 
 class Brastlewark extends Component {
@@ -18,35 +19,39 @@ class Brastlewark extends Component {
   }
 
   componentDidMount() {
-    const {currentPage, gnomesPerPage} = this.state
-      axios.get('https://raw.githubusercontent.com/rrafols/mobile_test/master/data.json')
+    const {currentPage, gnomesPerPage} = this.state;
+    axios.get('https://raw.githubusercontent.com/rrafols/mobile_test/master/data.json')
       .then (response => {
         const gnomes = response.data;
-        const paginatedGnomes = gnomes.Brastlewark.slice(currentPage, gnomesPerPage)
+        const paginatedGnomes = gnomes.Brastlewark.slice(currentPage, gnomesPerPage);
         this.setState({ gnomesFromApi: response.data, gnomes: paginatedGnomes, totalGnomes: gnomes.Brastlewark.length 
-        })
-      })
-  }
+        });
+      });
+  };
 
   handleNextPage = () => {
-    const {currentPage, gnomesPerPage, gnomesFromApi} = this.state
+    const {currentPage, gnomesPerPage, gnomesFromApi} = this.state;
     this.setState({ 
       currentPage:currentPage + gnomesPerPage
-    })
-    const newCurrentPage = currentPage + gnomesPerPage
-    const nextPaginatedGnomes = gnomesFromApi.Brastlewark.slice(newCurrentPage, newCurrentPage+gnomesPerPage)
-    this.setState({gnomes:nextPaginatedGnomes, currentPage:newCurrentPage})
-  }
+    });
+    const newCurrentPage = currentPage + gnomesPerPage;
+    const nextPaginatedGnomes = gnomesFromApi.Brastlewark.slice(newCurrentPage, newCurrentPage+gnomesPerPage);
+    this.setState({
+      gnomes:nextPaginatedGnomes, currentPage:newCurrentPage
+    });
+  };
 
   handlePreviousPage = () => {
-    const {currentPage, gnomesPerPage, gnomesFromApi} = this.state
+    const {currentPage, gnomesPerPage, gnomesFromApi} = this.state;
     this.setState({ 
       currentPage:currentPage - gnomesPerPage
-    })
-    const newCurrentPage = currentPage - gnomesPerPage
-    const nextPaginatedGnomes = gnomesFromApi.Brastlewark.slice(newCurrentPage, newCurrentPage+gnomesPerPage)
-    this.setState({gnomes:nextPaginatedGnomes, currentPage:newCurrentPage})
-  }
+    });
+    const newCurrentPage = currentPage - gnomesPerPage;
+    const nextPaginatedGnomes = gnomesFromApi.Brastlewark.slice(newCurrentPage, newCurrentPage+gnomesPerPage);
+    this.setState({
+      gnomes:nextPaginatedGnomes, currentPage:newCurrentPage
+    });
+  };
 
   
   updateSearchName(event) {
@@ -67,7 +72,7 @@ class Brastlewark extends Component {
     );
     let fileteredGnomosByAge = gnomes.filter(
       gnomo => {
-        return gnomo.age >= this.state.searchAge;
+        return gnomo.age > this.state.searchAge;
       }
     );
     return (
@@ -93,19 +98,19 @@ class Brastlewark extends Component {
           {
             gnomes.length && !searchName && !searchAge  ? 
             gnomes.map(gnomo => 
-              <GnomeCard data={gnomo}/>
+              <GnomeCard data={gnomo} key={gnomo.name}/>
             ) : null
           }
           {
             gnomes.length && searchName  ? 
             fileteredGnomosByName.map(gnomo => 
-              <GnomeCard data={gnomo}/>
+              <GnomeCard data={gnomo} key={gnomo.name}/>
             ) : null
           }
           {
             gnomes.length && searchAge ? 
             fileteredGnomosByAge.map(gnomo => 
-              <GnomeCard data={gnomo}/>
+              <GnomeCard data={gnomo} key={gnomo.name}/>
             ) : null
           }
           {
@@ -114,10 +119,10 @@ class Brastlewark extends Component {
             : null
           }
         </section>
-        <div>
+        <section>
           <button onClick={this.handlePreviousPage} className="page-btn"> Previous </button>
           <button onClick={this.handleNextPage} className="page-btn"> Next </button>
-        </div>
+        </section>
       </>
     )
   }
