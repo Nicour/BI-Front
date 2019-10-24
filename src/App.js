@@ -1,8 +1,8 @@
 import React from 'react';
 import  { Component } from 'react';
+
 import 'milligram';
 import './App.css';
-
 
 import Brastlewark from './pages/Brastlewark';
 
@@ -14,7 +14,7 @@ class App extends Component {
         <Brastlewark path="/" exact component={Brastlewark}/>
       </div>
     )
-  }
-}
+  };
+};
 
 export default App;

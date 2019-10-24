@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 export default class GnomeCard extends Component {
   render() {
@@ -35,7 +35,7 @@ export default class GnomeCard extends Component {
           }
         </section>
       </div>
-      )
-  }
-}
+    )
+  };
+};
 

@@ -12,11 +12,11 @@ class Brastlewark extends Component {
       gnomes: [],
       totalGnomes: 0,
       currentPage: 0,
-      gnomesPerPage: 10,   
+      gnomesPerPage: 20,   
       searchName: '',
       searchAge: ''
     }
-  }
+  };
 
   componentDidMount() {
     const {currentPage, gnomesPerPage} = this.state;
@@ -32,36 +32,36 @@ class Brastlewark extends Component {
   handleNextPage = () => {
     const {currentPage, gnomesPerPage, gnomesFromApi} = this.state;
     this.setState({ 
-      currentPage:currentPage + gnomesPerPage
+      currentPage: currentPage + gnomesPerPage
     });
     const newCurrentPage = currentPage + gnomesPerPage;
-    const nextPaginatedGnomes = gnomesFromApi.Brastlewark.slice(newCurrentPage, newCurrentPage+gnomesPerPage);
+    const nextPaginatedGnomes = gnomesFromApi.Brastlewark.slice(newCurrentPage, newCurrentPage + gnomesPerPage);
     this.setState({
-      gnomes:nextPaginatedGnomes, currentPage:newCurrentPage
+      gnomes: nextPaginatedGnomes, currentPage:newCurrentPage
     });
   };
 
   handlePreviousPage = () => {
     const {currentPage, gnomesPerPage, gnomesFromApi} = this.state;
     this.setState({ 
-      currentPage:currentPage - gnomesPerPage
+      currentPage: currentPage - gnomesPerPage
     });
     const newCurrentPage = currentPage - gnomesPerPage;
-    const nextPaginatedGnomes = gnomesFromApi.Brastlewark.slice(newCurrentPage, newCurrentPage+gnomesPerPage);
+    const nextPaginatedGnomes = gnomesFromApi.Brastlewark.slice(newCurrentPage, newCurrentPage + gnomesPerPage);
     this.setState({
-      gnomes:nextPaginatedGnomes, currentPage:newCurrentPage
+      gnomes: nextPaginatedGnomes, currentPage: newCurrentPage
     });
   };
 
   
   updateSearchName(event) {
     this.setState({searchName: event.target.value.substr(0, 25)})
-  }
+  };
 
 
   updateSearchAge(event) {
     this.setState({searchAge: event.target.value.substr(0, 4)})
-  }
+  };
 
   render() {
     const {gnomes, searchName, searchAge} = this.state;
@@ -125,7 +125,7 @@ class Brastlewark extends Component {
         </section>
       </>
     )
-  }
-}
+  };
+};
 
-export default Brastlewark
+export default Brastlewark;
